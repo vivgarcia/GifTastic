@@ -59,14 +59,13 @@ $(document).on("click", ".giftasticButton", function(){
             $(".gifsGoHere").prepend(gifContainer);
         }
     })
-
+// when GIF is clicked, states will be switched
     $(document).on("click", ".result", function() {
         var state = $(this).attr("data-state");
-    
         if(state === "still") {
             $(this).attr("src", $(this).attr("data-animate"));
             $(this).attr("data-state", "animate");
-          } else {
+            } else {
             $(this).attr("src", $(this).attr("data-still"));
             $(this).attr("data-state", "still");
         }
