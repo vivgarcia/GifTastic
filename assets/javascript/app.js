@@ -1,3 +1,5 @@
+//TODO: GIFs won't animate when new button is clicked
+// TODO: Make sure all characters are alphanumerical
 //defining topics
 var topics = [
     "bobs burgers",
