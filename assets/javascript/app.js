@@ -29,7 +29,7 @@ $("#addAShow").on("click", function(event){
     // clear the input field
     $("#showTitle").val("");
 })
-
+// function to click button to populate 10 GIFs
 $(document).on("click", ".giftasticButton", function(){
     // create variable by grabbing data-show
     var show = $(this).attr("data-show");
