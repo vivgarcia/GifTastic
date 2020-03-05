@@ -17,12 +17,13 @@ for (let i = 0; i < topics.length; i++) {
 $("#addAShow").on("click", function(event){
     event.preventDefault();
     var newShow = $("#showTitle").val().trim();
-    console.log(newShow.toLowerCase());
+    console.log(newShow);
     topics.push(newShow);
-    var newButton = $("<button>").text(newShow);
+    var newButton = $("<button>").text(newShow.toLowerCase());
     newButton.attr("data-show", newShow);
     newButton.addClass("btn btn-primary customButton");
     $(".buttonsGoHere").append(newButton);
+    $("#showTitle").val("");
 })
 
 $(document).ready(function(){
