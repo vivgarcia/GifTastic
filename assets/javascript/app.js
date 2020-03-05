@@ -41,7 +41,7 @@ $(document).on("click", ".giftasticButton", function(){
         var results = response.data;
         console.log(results);
         // creates an individual div for each gif and rating
-        var gifContainer = $("<div class ='gifContainer'>");
+        var gifContainer = $("<div class ='gifContainer col-md-3'>");
         // runs a loop through the results and grabs relevant data
         for (let i = 0; i < results.length; i++) {
             // create local variables for the rating and image
