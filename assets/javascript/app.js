@@ -10,7 +10,7 @@ var topics = [
 for (let i = 0; i < topics.length; i++) {
     var button = $("<button>").text(topics[i]);
     button.attr("data-show", topics[i]);
-    button.addClass("btn btn-primary customButton");
+    button.addClass("btn btn-primary giftasticButton");
     $(".buttonsGoHere").append(button);
 }
 //add a new show 
@@ -24,13 +24,13 @@ $("#addAShow").on("click", function(event){
     // create new button and append it
     var newButton = $("<button>").text(newShow.toLowerCase());
     newButton.attr("data-show", newShow);
-    newButton.addClass("btn btn-primary customButton");
+    newButton.addClass("btn btn-primary giftasticButton");
     $(".buttonsGoHere").append(newButton);
     // clear the input field
     $("#showTitle").val("");
 })
 
-$(document).ready(function(){
+$(document).on("click", ".giftasticButton", function(){
     // create variable by grabbing data-show
     var show = $(this).attr("data-show");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + show + "&api_key=KkpY2QCGen77UrOTWYKKC98mbcNWeRTo&limit=10";
@@ -38,8 +38,37 @@ $(document).ready(function(){
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        console.log(queryURL);
-        console.log(response);
+        var results = response.data;
+        console.log(results);
+        // creates an individual div for each gif and rating
+        var gifContainer = $("<div class ='gifContainer'>");
+        // runs a loop through the results and grabs relevant data
+        for (let i = 0; i < results.length; i++) {
+            // create local variables for the rating and image
+            let rating = results[i].rating;
+            let p = $("<p>").text("Rating: " + rating);
+            let GIF = $("<img class='result'>");
+            // assign attributes to the GIF for the animated feature
+            GIF.attr("src", results[i].images.fixed_height_still.url);
+    		GIF.attr("data-state", "still");
+    		GIF.attr("data-still", results[i].images.fixed_height_still.url);
+            GIF.attr("data-animate", results[i].images.fixed_height.url);
+            // attach GIF and P to the container and attach gifContainer to parent DIV
+            gifContainer.prepend(GIF);
+            gifContainer.prepend(p);
+            $(".gifsGoHere").prepend(gifContainer);
+        }
     })
 
+    $(document).on("click", ".result", function() {
+        var state = $(this).attr("data-state");
+    
+        if(state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+          } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+    });
 })
